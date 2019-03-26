@@ -46,25 +46,87 @@ function init() {
             calcButtons.addEventListener("click", buttonClick);
       };
 
+      //Runs the calcKey function with the key-down event happening within every element with the ID of "calcWindow".
       document.getElementById("calcWindow").addEventListener("key-down", calcKeys);
 }
 
+//Function that controls how the calculator looks when the buttons are pressed.
 function buttonClick() {
+
+      //Variables set as commands, with calcValue being the value of "calcWindow", calcDecimal equal to the value to decimals, and buttonValue equal the object value's target.
       var calcValue = calcWindow.value,
             calcDecimal = decimals.value,
             buttonValue = value.target;
 }
 
-switch (.getbuttonValue) {
-      case del:
+//A switch case structure for the possible values of the buttonValue variable.
+switch (buttonValue) {
+      // In the case of the delete key being pressed, it will set calcValue to an empty string.
+      case "del":
             calcValue = " ";
             break;
-      case bksp:
-            // code block
+
+      // Backspace it will run the eraseChar function with calcValue as a parameter.
+      case "bksp":
+            eraseChar(calcValue);
             break;
-      case enter:
-            // code block
+
+      // Enter will will calculate the following expressing by changing calcValue to the string provided.
+      case "enter":
+            calcValue = " = " + evalEq(calcValue, calcDecimal) + "\n";
+            break;
+
+      // Previous returns the lastvalue by running the lastEq function with calcValue as the parameter.
+      case "prev":
+            calcValue = lastEq(calcValue);
+            break;
+
+      // Otherwise, if no cases match, calcValue will be set to whatever value the buttonValue is added onto itself.
+      default:
+            calcValue = calcValue += buttonValue;      
 }
+
+      // The calcWindow text area box is set to the value of calcValue.
+      calcWindow = calcValue;
+
+      // Command ran in order to get the cursor focus within the calculator window.
+      document.getElementById("calcWindow").focus();
+
+      function calcKeys() {
+
+            // Like before, the calcValue and calcDecimal local variables are declared within the function.
+            var calcValue,
+            calcDecimal;
+
+            // Another switch function, this time for the key's values.
+            switch (key.value) {
+
+                  // In the case of a delete key, it will function similarly to the "del" button.
+                  case "Delete":
+                  calcValue = " ";
+                  break;
+
+                  // If the Enter key is pressed, it will function an indentical purpose to the "enter" button. 
+                  case "Enter":
+                  calcValue = " = " + evalEq(calcValue, calcDecimal);
+                  break;
+
+                  // If the up arrow is pressed, then it will function the same as the "prev" button. 
+                  case "ArrowUp":
+                  cakcValue = lastEq(calcWindow.value)
+                  break;
+                  
+                  default:
+                  break;
+            }
+
+            // Sets the value attribute of calcWindow to calcValue.
+            calcWindow.value = calcValue;
+
+
+      }
+
+
 
 /* ===================================================================== */
 
